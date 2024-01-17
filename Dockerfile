@@ -9,7 +9,9 @@ RUN apt-get install -y make
 RUN apt-get install -y libpcre3-dev
 RUN apt-get install -y libssl-dev
 RUN apt-get install -y wget
-RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg && apt-get update -y && apt-get install google-cloud-sdk -y
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg  \
+RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+RUN sudo apt-get update && sudo apt-get install google-cloud-cli
 RUN gcloud init
 RUN mkdir -p /home/nginx-rtmp-module
 RUN git clone https://github.com/arut/nginx-rtmp-module /home/nginx-rtmp-module
